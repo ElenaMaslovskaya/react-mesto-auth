@@ -26,7 +26,7 @@ function App() {
     const [email, setEmail] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     //создаем стейты
-    const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+    const [isTooltipOpen, setIsTooltipOpen] = useState(true);
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -53,14 +53,14 @@ function App() {
     useEffect(() => {
         if (isLoggedIn) {
             Promise.all([api.getUserInfo(), api.getInitialCards()])
-            .then(resData => {
-                const [userData, cardList] = resData;
-                setCurrentUser(userData);
-                setCards(cardList);
-            })
-            .catch((err) => {
-                console.log(`Ошибка: ${err}`)
-            })
+                .then(resData => {
+                    const [userData, cardList] = resData;
+                    setCurrentUser(userData);
+                    setCards(cardList);
+                })
+                .catch((err) => {
+                    console.log(`Ошибка: ${err}`)
+                })
         }
     }, [isLoggedIn]);
 
@@ -171,21 +171,37 @@ function App() {
             });
     }
 
-    function handleRegister({ email, password }) {
+    /*    function handleRegister({ email, password }) {
+            setIsLoading(true);
+            auth.register(email, password)
+                .then((res) => {
+                    if (res) {
+                        setSignupState(true);
+                        history.push('/sign-in')
+                    }
+                })
+                .catch((err) => {
+                    console.log(`Ошибка при регистрации: ${err}`);
+                    setSignupState(false);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                    setIsTooltipOpen(true);
+                });
+        }
+    */
+    function handleRegister({email, password}) {
         setIsLoading(true);
         auth.register(email, password)
             .then((res) => {
+                setIsTooltipOpen(true);
                 if (res) {
                     setSignupState(true);
-                    history.push('/sign-in')
+                    handleLogin(password, email)
                 }
             })
-            .catch((err) => {
-                console.log(`Ошибка при регистрации: ${err}`);
+            .catch(() => {
                 setSignupState(false);
-            })
-            .finally(() => {
-                setIsLoading(false);
                 setIsTooltipOpen(true);
             });
     }
