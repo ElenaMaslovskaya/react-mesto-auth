@@ -16,7 +16,6 @@ import CurrentUserContext from "../contexts/CurrentUserContext.js";
 import { api } from "../utils/Api"
 import "../index.css";
 import { Route, Switch, useHistory } from "react-router-dom";
-//import { Redirect, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
     //регистрация и логин
@@ -171,25 +170,6 @@ function App() {
             });
     }
 
-    /*    function handleRegister({ email, password }) {
-            setIsLoading(true);
-            auth.register(email, password)
-                .then((res) => {
-                    if (res) {
-                        setSignupState(true);
-                        history.push('/sign-in')
-                    }
-                })
-                .catch((err) => {
-                    console.log(`Ошибка при регистрации: ${err}`);
-                    setSignupState(false);
-                })
-                .finally(() => {
-                    setIsLoading(false);
-                    setIsTooltipOpen(true);
-                });
-        }
-    */
     function handleRegister({email, password}) {
         setIsLoading(true);
         auth.register(email, password)
@@ -305,7 +285,6 @@ function App() {
                         isLoading={isLoading}
                     />
                     <InfoTooltip
-                        name="tooltip"
                         isOpen={isTooltipOpen}
                         onClose={closeAllPopups}
                         signupState={signupState}

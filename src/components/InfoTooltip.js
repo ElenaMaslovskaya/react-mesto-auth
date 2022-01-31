@@ -5,7 +5,7 @@ import imageFail from "../images/register-fail.svg";
 function InfoTooltip(props) {
 
    return (
-      <section className={`tooltip ${props.isOpen ? "tooltip_opened" : ""}`} id={`${props.name}-popup`} onClick={props.handleOverlayClose}>
+      <section className={`tooltip ${props.isOpen ? "tooltip_opened" : ""}`}>
          <div className={`tooltip__container`}>
             <button type="button" className="tooltip__close" onClick={props.onClose}></button>
             <img className="tooltip__icon" src={props.signupState ? imageSuccess : imageFail} alt="#" />

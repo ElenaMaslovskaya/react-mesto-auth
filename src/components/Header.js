@@ -6,12 +6,11 @@ function Header(props) {
    return (
       <header className="header">
          <img className="header__logo" alt="Логотип" src={logo} />
+         <nav className="header__menu">
          <Switch>
             <Route exact path='/'>
-               <div className='header__info'>
                   <span className="header__info-email">{props.email}</span>
-                  <button type='button' onClick={props.onSignOut} className='header__link header__link_type_out'>Выйти</button>
-               </div>
+                  <Link to='/sign-in' className='header__link' onClick={props.onSignOut}>Выйти</Link>
             </Route>
             <Route path='/sign-in'>
                <Link to='/sign-up' className='header__link '>Регистрация</Link>
@@ -20,6 +19,7 @@ function Header(props) {
                <Link to='/sign-in' className='header__link '>Войти</Link>
             </Route>
          </Switch>
+         </nav>
       </header>
    )
 };

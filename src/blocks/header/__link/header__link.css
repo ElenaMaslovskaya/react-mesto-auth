@@ -1,19 +1,9 @@
 .header__link {
-   font-family: "Inter", Arial, Helvetica, sans-serif;
-   font-style: normal;
-   font-weight: normal;
    font-size: 18px;
    line-height: 22px;
    color: white;
    text-decoration: none;
-   display: flex;
    align-items: center;
-}
-
-@media (max-width: 900px) {
-   .header__link {
-      padding-right: 27px;
-   }
 }
 
 @media (max-width: 400px) {
@@ -21,4 +11,8 @@
       font-size: 14px;
       line-height: 17px;
    }
+}
+
+.header__link:last-of-type {
+   margin-left: 24px;
 }
