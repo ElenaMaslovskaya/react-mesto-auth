@@ -63,6 +63,18 @@ function App() {
         }
     }, [isLoggedIn]);
 
+    useEffect(() => {
+        const closeByEscape = (e) => {
+            if (e.key === 'Escape') {
+                closeAllPopups();
+            }
+        }
+
+        document.addEventListener('keydown', closeByEscape)
+
+        return () => document.removeEventListener('keydown', closeByEscape)
+    }, [])
+
     function handleEditProfileClick() {
         setIsEditProfilePopupOpen(true);
     };
@@ -148,11 +160,6 @@ function App() {
             })
     };
 
-/*    function handleCardDeleteClick(card) {
-        setSelectedCard(card);
-        setIsConfirmPopupOpen(true);
-    }
-*/
     //Функция удаления карточки
     function handleCardDelete(card) {
         setIsLoading(true);
@@ -170,11 +177,10 @@ function App() {
             });
     }
 
-    function handleRegister({email, password}) {
+    function handleRegister({ email, password }) {
         setIsLoading(true);
         auth.register(email, password)
             .then((res) => {
-                setIsTooltipOpen(true);
                 if (res) {
                     setSignupState(true);
                     handleLogin(password, email)
@@ -182,12 +188,15 @@ function App() {
             })
             .catch(() => {
                 setSignupState(false);
+            })
+            .finally(() => {
+                setIsLoading(false);
                 setIsTooltipOpen(true);
             });
     }
 
     function handleLogin({ email, password }) {
-        setIsLoading(true);
+        //setIsLoading(true);
         auth.authorize(email, password)
             .then((res) => {
                 localStorage.setItem('jwt', res.token);
@@ -199,10 +208,10 @@ function App() {
             .catch((err) => {
                 console.log(`Ошибка при авторизации: ${err}`);
                 setSignupState(false);
+                setIsTooltipOpen(true);
             })
             .finally(() => {
                 setIsLoading(false);
-                setIsTooltipOpen(true);
             });
     }
 

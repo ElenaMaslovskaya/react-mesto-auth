@@ -49,7 +49,7 @@ function Login(props) {
                minLength="6"
                maxLength="20"
             />
-            <button className="auth-content__button" type="submit" onClick={handleSubmit}>Войти</button>
+            <button className="auth-content__button" type="submit">Войти</button>
          </form>
       </section>
    )
