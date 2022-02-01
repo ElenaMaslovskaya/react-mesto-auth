@@ -66,7 +66,7 @@ export class Api {
       })
          .then(res => this._serverResponse(res))
    }
-   
+
    //Добавить новую карточку
    addNewCard({ name: place, link: source }) {
       return fetch(`${this.source}/${this.cohort}/cards`, {
@@ -93,38 +93,21 @@ export class Api {
       })
          .then(res => this._serverResponse(res))
    }
-
-   //добавить лайк
-   setLike(cardId) {
-      return fetch(`${this.source}/${this.cohort}/cards/likes/${cardId}`, {
-         method: 'PUT',
-         headers: {
-            authorization: this.token,
-         }
-      })
-         .then(res => this._checkResponse(res))
-   }
-
-   //убрать лайк
-   deleteLike(cardId) {
-      return fetch(`${this.source}/${this.cohort}/cards/likes/${cardId}`, {
-         method: 'DELETE',
-         headers: {
-            authorization: this.token,
-         }
-      })
-         .then(res => this._checkResponse(res))
-   }
-
+   
    //лайки
-   changeLikeCardStatus(cardId, isLiked) {
-      if (isLiked) {
-         return this.setLike(cardId);
-      } else {
-         return this.deleteLike(cardId);
-      }
+   changeCardLikeStatus(cardId, isLiked) {
+      return fetch(`${this.source}/${this.cohort}/cards/likes/${cardId}`, {
+         method: `${isLiked ? "PUT" : "DELETE"}`,
+         headers: {
+            authorization: this.token,
+            "Content-type": "application/json",
+         },
+      }).then((res) => {
+         return this._serverResponse(res);
+      });
    }
 }
+
 
 export const api = new Api({
    source: 'https://mesto.nomoreparties.co/v1',

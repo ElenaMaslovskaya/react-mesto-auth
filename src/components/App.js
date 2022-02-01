@@ -25,7 +25,7 @@ function App() {
     const [email, setEmail] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     //создаем стейты
-    const [isTooltipOpen, setIsTooltipOpen] = useState(true);
+    const [isTooltipOpen, setIsTooltipOpen] = useState(false);
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -97,7 +97,7 @@ function App() {
 
     function handleUpdateAvatar(avatar) {
         setIsLoading(true);
-        api.updateAvatar(avatar)
+        api.updateUserAvatar(avatar)
             .then((avatar) => {
                 setCurrentUser(avatar);
                 closeAllPopups();
@@ -139,7 +139,7 @@ function App() {
     function handleCardLike(card) {
         const isLiked = card.likes.some(i => i._id === currentUser._id);
         api
-            .changeCardLike(card._id, !isLiked)
+            .changeCardLikeStatus(card._id, !isLiked)
             .then((newCard) => {
                 setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
             })
@@ -148,11 +148,11 @@ function App() {
             })
     };
 
-    function handleCardDeleteClick(card) {
+/*    function handleCardDeleteClick(card) {
         setSelectedCard(card);
         setIsConfirmPopupOpen(true);
     }
-
+*/
     //Функция удаления карточки
     function handleCardDelete(card) {
         setIsLoading(true);
@@ -245,7 +245,7 @@ function App() {
                             onAddPlace={handleAddPlaceClick}
                             onCardClick={handleCardClick}
                             onCardLike={handleCardLike}
-                            onCardDeleteClick={handleCardDeleteClick}
+                            onCardDelete={handleCardDelete}
                             cards={cards}
                         />
                     </Switch>
