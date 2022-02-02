@@ -48,7 +48,7 @@ function Register(props) {
                minLength="6"
                maxLength="20"
             />
-            <button className="auth-content__button" type="submit" onClick={handleSubmit}>Зарегистрироваться</button>
+            <button className="auth-content__button" type="submit">Зарегистрироваться</button>
             <Link to="/sign-in" className="auth-content__link-login">Уже зарегистрированы? Войти</Link>
          </form>
       </section>
